@@ -10,8 +10,8 @@ import (
 	"github.com/go-resty/resty/v2"
 )
 
-// SendTransactionalEmailURL is the endpoint for sending transactional emails.
-const SendTransactionalEmailURL = "https://api.sendinblue.com/v3/smtp/email"
+// SendTransactionalEmailEndpoint is the endpoint for sending transactional emails.
+const SendTransactionalEmailEndpoint = "/v3/smtp/email"
 
 // ErrSentWithBadResponse means server responded with HTTP code 201
 // but body cannot be processed to retrieve the message id.
@@ -23,11 +23,12 @@ type Client struct {
 }
 
 // New creates a new sendinblue client configured with the given api-key and timeout.
-func New(apiKey string, timeout time.Duration) *Client {
+func New(url, apiKey string, timeout time.Duration) *Client {
 	return &Client{
 		Client: resty.New().
-			SetTimeout(timeout).
-			SetHeader("api-key", apiKey),
+			SetHostURL(url).
+			SetHeader("api-key", apiKey).
+			SetTimeout(timeout),
 	}
 }
 
@@ -39,7 +40,7 @@ func New(apiKey string, timeout time.Duration) *Client {
 //
 // It's based on sendinblue's v3 API https://developers.sendinblue.com/reference#sendtransacemail.
 func (c *Client) SendTransactionalEmail(email *Email) (string, error) {
-	resp, err := c.Client.R().SetBody(email).Post(SendTransactionalEmailURL)
+	resp, err := c.Client.R().SetBody(email).Post(SendTransactionalEmailEndpoint)
 
 	if err != nil {
 		return "", err
