@@ -8,7 +8,7 @@ type User struct {
 type Email struct {
 	Sender      User   `json:"sender"`
 	To          []User `json:"to"`
-	ReplyTo     User   `json:"reply_to"`
+	ReplyTo     User   `json:"replyTo"`
 	Subject     string `json:"subject"`
-	HTMLContent string `json:"html_content"`
+	HTMLContent string `json:"htmlContent"`
 }

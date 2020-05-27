@@ -53,7 +53,7 @@ func (c *Client) SendTransactionalEmail(email *Email) (string, error) {
 				return "", fmt.Errorf("bad request. error on processing the response: %v", err)
 			}
 
-			return "", fmt.Errorf("bad request. response: %v", body)
+			return "", fmt.Errorf("bad request. response: %+v", body)
 		}
 
 		return "", fmt.Errorf("failed. code: %d", code)
