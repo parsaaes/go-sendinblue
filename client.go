@@ -39,7 +39,7 @@ func New(url, apiKey string, timeout time.Duration) *Client {
 // with 201 and without a proper response.
 //
 // It's based on sendinblue's v3 API https://developers.sendinblue.com/reference#sendtransacemail.
-func (c *Client) SendTransactionalEmail(email *Email) (string, error) {
+func (c *Client) SendTransactionalEmail(email Email) (string, error) {
 	resp, err := c.Client.R().SetBody(email).Post(SendTransactionalEmailEndpoint)
 
 	if err != nil {
