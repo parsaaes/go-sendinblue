@@ -1,7 +1,7 @@
 package sendinblue
 
 type OKResponse struct {
-	MessageID string `json:"message_id"`
+	MessageID string `json:"messageId"`
 }
 
 type ErrorResponse struct {
